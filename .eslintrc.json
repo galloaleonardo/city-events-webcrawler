@@ -98,6 +98,9 @@
         ],
         "no-undef": [
             0
+        ],
+        "import/named": [
+            0
         ]
     }
 }

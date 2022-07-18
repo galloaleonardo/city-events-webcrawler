@@ -3,7 +3,6 @@
     "incremental": true,
     "target": "es2016",
     "module": "commonjs",
-    "baseUrl": "src",
     "sourceMap": true,
     "outDir": "dist",
     "removeComments": true,
@@ -15,7 +14,16 @@
     "strictNullChecks": false,
     "strictBindCallApply": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": "src",
+    "paths": {
+      "services/*": [
+        "services/*"
+      ],
+      "interfaces/*": [
+        "interfaces/*"
+      ],
+    }
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]

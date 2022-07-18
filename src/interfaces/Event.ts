@@ -4,5 +4,5 @@ export default interface Event {
   date?: string;
   time?: string;
   place?: string;
-  placeLink: string;
-}
+  placeWebsite: string;
+};
