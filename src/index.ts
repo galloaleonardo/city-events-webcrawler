@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import puppeteer from 'puppeteer';
 import * as BrasucaCrawler from 'services/BrasucaCrawler';
+import * as PrefeituraCampinasCrawler from 'services/PrefeituraCampinasCrawler';
 
 (async () => {
   const startedWebScraping = performance.now();
@@ -19,10 +20,18 @@ import * as BrasucaCrawler from 'services/BrasucaCrawler';
   });
 
   const brasucaEvents = await BrasucaCrawler.handle(page);
+  const prefeituraCampinasEvents = await PrefeituraCampinasCrawler.handle(page);
+
+  const allEvents = [
+    ...brasucaEvents,
+    ...prefeituraCampinasEvents,
+  ].sort((previous, next) => new Date(previous.startDateTime) - new Date(next.endDateTime));
+
+  const numberOfEvents = allEvents.length;
 
   await browser.close();
 
   const finishedWebScraping = performance.now();
 
-  console.log(`Web scraping just finished in ${((finishedWebScraping - startedWebScraping) / 1000.0).toFixed(2)} seconds.`);
+  console.log(`Done! ${numberOfEvents} events were crawled in ${((finishedWebScraping - startedWebScraping) / 1000.0).toFixed(2)} seconds.`);
 })();

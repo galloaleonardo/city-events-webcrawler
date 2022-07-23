@@ -34,7 +34,7 @@ export async function handle(pageInstance: Page): Promise<Event[]> {
 
       return {
         title: description,
-        dateTime,
+        startDateTime: dateTime,
         place: 'Brasuca',
         placeWebsite: 'https://brasucabar.com.br',
       } as Event;
