@@ -26,27 +26,27 @@ export async function handle(pageInstance: Page) {
 
         const [day, month, year] = rawDateWithYear.split('/');
 
-        startDateTime = new Date(`${year}-${month}-${day} 00:00:00`).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+        startDateTime = `${year}-${month}-${day} 00:00:00`;
       } else if (dateTime.length === 13) {
         const startRawDateWithoutYear = dateTime.substring(0, 5);
         const startRawDateWithYear = `${startRawDateWithoutYear}/${new Date().getFullYear()}`;
 
         const [startDay, startMonth, startYear] = startRawDateWithYear.split('/');
 
-        startDateTime = new Date(`${startYear}-${startMonth}-${startDay} 00:00:00`).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+        startDateTime = `${startYear}-${startMonth}-${startDay} 00:00:00`;
 
         const endRawDateWithoutYear = dateTime.substring(dateTime.length - 5);
         const endRawDateWithYear = `${endRawDateWithoutYear}/${new Date().getFullYear()}`;
 
         const [endDay, endMonth, endYear] = endRawDateWithYear.split('/');
 
-        endDateTime = new Date(`${endYear}-${endMonth}-${endDay} 00:00:00`).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+        endDateTime = `${endYear}-${endMonth}-${endDay} 00:00:00`;
       }
 
       return {
         title,
         startDateTime,
-        endDateTime,
+        endDateTime: endDateTime ?? startDateTime,
         place: 'Prefeitura Campinas',
         placeWebsite: 'https://campinas.com.br/cultura',
       } as Event;

@@ -2,6 +2,7 @@ import 'dotenv/config';
 import puppeteer from 'puppeteer';
 import * as BrasucaCrawler from 'services/BrasucaCrawler';
 import * as PrefeituraCampinasCrawler from 'services/PrefeituraCampinasCrawler';
+import * as ShowCampinasBlogCrawler from 'services/ShowsCampinasBlogCrawler';
 
 (async () => {
   const startedWebScraping = performance.now();
@@ -21,11 +22,13 @@ import * as PrefeituraCampinasCrawler from 'services/PrefeituraCampinasCrawler';
 
   const brasucaEvents = await BrasucaCrawler.handle(page);
   const prefeituraCampinasEvents = await PrefeituraCampinasCrawler.handle(page);
+  const showsCampinasBlogCrawler = await ShowCampinasBlogCrawler.handle(page);
 
   const allEvents = [
     ...brasucaEvents,
     ...prefeituraCampinasEvents,
-  ].sort((previous, next) => new Date(previous.startDateTime) - new Date(next.endDateTime));
+    ...showsCampinasBlogCrawler,
+  ].sort((previous, next) => +new Date(previous.startDateTime) - +new Date(next.startDateTime));
 
   const numberOfEvents = allEvents.length;
 

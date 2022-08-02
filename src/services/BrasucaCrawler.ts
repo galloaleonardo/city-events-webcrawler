@@ -26,7 +26,7 @@ export async function handle(pageInstance: Page): Promise<Event[]> {
 
       const time = rawTime.length === 3 ? `${rawTime.substring(0, 2)}:00:00` : `${rawTime.substring(0, 2)}:${rawTime.substring(3, 2)}:00`;
 
-      const dateTime = new Date(`${year}-${month}-${day} ${time}`).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+      const dateTime = `${year}-${month}-${day} ${time}`;
 
       const descriptionRaw = descriptionInfo.querySelector<HTMLUListElement>('h2.elementor-heading-title.elementor-size-default')?.innerHTML;
 
@@ -35,6 +35,7 @@ export async function handle(pageInstance: Page): Promise<Event[]> {
       return {
         title: description,
         startDateTime: dateTime,
+        endDateTime: dateTime,
         place: 'Brasuca',
         placeWebsite: 'https://brasucabar.com.br',
       } as Event;
