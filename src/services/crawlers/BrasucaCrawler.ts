@@ -36,12 +36,10 @@ export async function handle(pageInstance: Page): Promise<Event[]> {
         title: description,
         startDateTime: dateTime,
         endDateTime: dateTime,
-        place: 'Brasuca',
-        placeWebsite: 'https://brasucabar.com.br',
+        crawledOn: 'Brasuca',
+        website: 'https://brasucabar.com.br',
       } as Event;
     });
-
-    console.log(events);
 
     return events;
   });

@@ -47,8 +47,8 @@ export async function handle(pageInstance: Page) {
         title,
         startDateTime,
         endDateTime: endDateTime ?? startDateTime,
-        place: 'Prefeitura Campinas',
-        placeWebsite: 'https://campinas.com.br/cultura',
+        crawledOn: 'Prefeitura Campinas',
+        website: 'https://campinas.com.br/cultura',
       } as Event;
     });
 

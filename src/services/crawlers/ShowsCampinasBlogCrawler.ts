@@ -33,8 +33,8 @@ export async function handle(pageInstance: Page) {
         title,
         startDateTime: dayOfDate,
         endDateTime: dayOfDate,
-        place: 'Shows Campinas',
-        placeWebsite: 'http://www.showscampinas.com.br/p/agenda.html',
+        crawledOn: 'Shows Campinas',
+        website: 'http://www.showscampinas.com.br/p/agenda.html',
       } as Event;
     });
 

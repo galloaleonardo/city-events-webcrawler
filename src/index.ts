@@ -1,38 +1,18 @@
 import 'dotenv/config';
-import puppeteer from 'puppeteer';
-import * as BrasucaCrawler from 'services/BrasucaCrawler';
-import * as PrefeituraCampinasCrawler from 'services/PrefeituraCampinasCrawler';
-import * as ShowCampinasBlogCrawler from 'services/ShowsCampinasBlogCrawler';
+import puppeteer, { Browser } from 'puppeteer';
+import Event from './interfaces/Event';
+import { BaseCrawler } from './services/BaseCrawler';
 
 (async () => {
-  const startedWebScraping = performance.now();
+  const startedWebScraping: number = performance.now();
 
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  const browser: Browser = await puppeteer.launch();
 
-  await page.setRequestInterception(true);
+  const crawler: BaseCrawler = new BaseCrawler(browser);
 
-  page.on('request', (req) => {
-    if (['image', 'stylesheet', 'font', 'media'].includes(req.resourceType())) {
-      req.abort();
-    } else {
-      req.continue();
-    }
-  });
+  const events: Event[] = await crawler.handle();
 
-  const brasucaEvents = await BrasucaCrawler.handle(page);
-  const prefeituraCampinasEvents = await PrefeituraCampinasCrawler.handle(page);
-  const showsCampinasBlogCrawler = await ShowCampinasBlogCrawler.handle(page);
-
-  const allEvents = [
-    ...brasucaEvents,
-    ...prefeituraCampinasEvents,
-    ...showsCampinasBlogCrawler,
-  ].sort((previous, next) => +new Date(previous.startDateTime) - +new Date(next.startDateTime));
-
-  const numberOfEvents = allEvents.length;
-
-  await browser.close();
+  const numberOfEvents = events.length;
 
   const finishedWebScraping = performance.now();
 

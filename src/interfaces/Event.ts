@@ -3,6 +3,6 @@ export default interface Event {
   description?: string;
   startDateTime: string;
   endDateTime?: string;
-  place: string;
-  placeWebsite: string;
+  crawledOn: string;
+  website: string;
 }
