@@ -1,4 +1,4 @@
-import puppeteer, { Browser } from 'puppeteer';
+import puppeteer, { Browser } from 'puppeteer-core';
 import { BaseCrawler } from '../../../src/services/BaseCrawler';
 import EventMock from '../../mocks/EventMock';
 

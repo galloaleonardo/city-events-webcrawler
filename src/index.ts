@@ -1,12 +1,17 @@
+import chromium from 'chrome-aws-lambda';
 import 'dotenv/config';
-import puppeteer, { Browser } from 'puppeteer';
+import { Browser } from 'puppeteer-core';
 import Event from './interfaces/Event';
 import { BaseCrawler } from './services/BaseCrawler';
 
 (async () => {
   const startedWebScraping: number = performance.now();
 
-  const browser: Browser = await puppeteer.launch();
+  const browser: Browser = await chromium.puppeteer.launch({
+    args: chromium.args,
+    defaultViewport: chromium.defaultViewport,
+    executablePath: await chromium.executablePath,
+  });
 
   const crawler: BaseCrawler = new BaseCrawler(browser);
 

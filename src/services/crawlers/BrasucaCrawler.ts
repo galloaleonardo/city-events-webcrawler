@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import { Page } from 'puppeteer-core';
 import Event from 'interfaces/Event';
 
 export async function handle(pageInstance: Page): Promise<Event[]> {

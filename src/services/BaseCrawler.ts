@@ -1,6 +1,6 @@
 import {
   Browser, Page,
-} from 'puppeteer';
+} from 'puppeteer-core';
 import * as PrefeituraCampinasCrawler from './crawlers/PrefeituraCampinasCrawler';
 import * as ShowCampinasBlogCrawler from './crawlers/ShowsCampinasBlogCrawler';
 import * as BrasucaCrawler from './crawlers/BrasucaCrawler';
