@@ -4,7 +4,9 @@ import { Browser } from 'puppeteer-core';
 import Event from './interfaces/Event';
 import { BaseCrawler } from './services/BaseCrawler';
 
-(async () => {
+const index = async (event: any) => {
+  console.log('Event Received!', event);
+
   const startedWebScraping: number = performance.now();
 
   const browser: Browser = await chromium.puppeteer.launch({
@@ -22,4 +24,14 @@ import { BaseCrawler } from './services/BaseCrawler';
   const finishedWebScraping = performance.now();
 
   console.log(`Done! ${numberOfEvents} events were crawled in ${((finishedWebScraping - startedWebScraping) / 1000.0).toFixed(2)} seconds.`);
-})();
+};
+
+if (process.env.NODE_ENV === 'local') {
+  (async () => {
+    await index({});
+  })();
+}
+
+exports.handler = async (event: any) => {
+  await index(event);
+};
