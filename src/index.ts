@@ -1,29 +1,36 @@
 import chromium from 'chrome-aws-lambda';
 import 'dotenv/config';
 import { Browser } from 'puppeteer-core';
+import * as AppLogger from './infra/AppLogger';
 import Event from './interfaces/Event';
 import { BaseCrawler } from './services/BaseCrawler';
 
 const index = async (event: any) => {
-  console.log('Event Received!', event);
+  try {
+    AppLogger.info('Received Event!', event);
 
-  const startedWebScraping: number = performance.now();
+    const startedWebScraping: number = performance.now();
 
-  const browser: Browser = await chromium.puppeteer.launch({
-    args: chromium.args,
-    defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath,
-  });
+    const browser: Browser = await chromium.puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+    });
 
-  const crawler: BaseCrawler = new BaseCrawler(browser);
+    const crawler: BaseCrawler = new BaseCrawler(browser);
 
-  const events: Event[] = await crawler.handle();
+    const events: Event[] = await crawler.handle();
 
-  const numberOfEvents = events.length;
+    const numberOfEvents = events.length;
 
-  const finishedWebScraping = performance.now();
+    const finishedWebScraping = performance.now();
 
-  console.log(`Done! ${numberOfEvents} events were crawled in ${((finishedWebScraping - startedWebScraping) / 1000.0).toFixed(2)} seconds.`);
+    AppLogger.info('Events: ', events);
+
+    AppLogger.info(`Done! ${numberOfEvents} events were crawled in ${((finishedWebScraping - startedWebScraping) / 1000.0).toFixed(2)} seconds.`);
+  } catch (error) {
+    AppLogger.err('Error performing scrap.', error);
+  }
 };
 
 if (process.env.NODE_ENV === 'local') {

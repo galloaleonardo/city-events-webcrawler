@@ -41,9 +41,9 @@ export class BaseCrawler {
 
   private async getOrderedCrawledEvents(page: Page): Promise<Event[]> {
     return [
-      ...await BrasucaCrawler.handle(page),
-      // ...await PrefeituraCampinasCrawler.handle(page),
-      // ...await ShowCampinasBlogCrawler.handle(page),
+      // ...await BrasucaCrawler.handle(page),
+      ...await PrefeituraCampinasCrawler.handle(page),
+      ...await ShowCampinasBlogCrawler.handle(page),
     ].sort((previous, next) => +new Date(previous.startDateTime) - +new Date(next.startDateTime));
   }
 }
