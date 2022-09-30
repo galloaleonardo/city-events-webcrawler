@@ -9,12 +9,12 @@ const index = async (event: any) => {
   try {
     AppLogger.info('Received Event!', event);
 
-    const startedWebScraping: number = performance.now();
-
     const browser: Browser = await chromium.puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+      dumpio: true,
     });
 
     const crawler: BaseCrawler = new BaseCrawler(browser);
@@ -23,11 +23,9 @@ const index = async (event: any) => {
 
     const numberOfEvents = events.length;
 
-    const finishedWebScraping = performance.now();
-
     AppLogger.info('Events: ', events);
 
-    AppLogger.info(`Done! ${numberOfEvents} events were crawled in ${((finishedWebScraping - startedWebScraping) / 1000.0).toFixed(2)} seconds.`);
+    AppLogger.info(`Done! ${numberOfEvents} events were crawled.`);
   } catch (error) {
     AppLogger.err('Error performing scrap.', error);
   }

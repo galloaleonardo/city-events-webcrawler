@@ -41,5 +41,8 @@
   "main": "src/index.ts",
   "repository": "git@github.com:galloaleonardo/city-events-webcrawler.git",
   "author": "Leonardo Gallo <galloaleonardo@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": "^14"
+  }
 }
